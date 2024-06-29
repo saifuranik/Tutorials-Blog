@@ -6,22 +6,32 @@ read whole command understand why you going to use it then apply it will be easy
 
 SAMBA setup in ubuntu and window
 # Step 1 : update Ubuntu machine
+```sh
 apt update -y
-Step 2: install SAMBA package
+```
+# Step 2: install SAMBA package
+```sh
 apt install samba samba-client samba-common -y
+```
 # Step 3: Enable samba in Firewall
+```sh
  firewall-cmd --permanent --zone=public --add-service=samba
  
  firewall-cmd --reload 
  
  sudo ufw allow samba
+```
 # Step 4: Creating a Directory for samba that you wanna share ( Linux )
+```sh
  mkdir <folder name >
-Step 4: Opening samba config file in terminal
+```
+# Step 4: Opening samba config file in terminal
+```sh
 sudo vim /etc/samba/smb.conf
+```
 # Step 5: Make Configuration permission for created folder for share
 add this spinet at the end of the file
-```
+```sh
 [<shared folder name >]
    path = /home/anik/<shared folder name >
    available = yes
