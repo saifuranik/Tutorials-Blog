@@ -1,3 +1,5 @@
+# SAMBA Server in Ubuntu & Windows
+
 for making connection of samba at first we have to create an ubuntu machine in VMware and if you wish you can also make a window server in vm or you can use your existing window machine
 
 Just follow the commands but Remember there some commands you need to modify as your info so while copy and paste command please don’t rush
