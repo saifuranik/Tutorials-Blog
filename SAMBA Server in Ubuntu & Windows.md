@@ -5,24 +5,23 @@ Just follow the commands but Remember there some commands you need to modify as 
 read whole command understand why you going to use it then apply it will be easy for you in next time
 
 SAMBA setup in ubuntu and window
-Step 1 : update Ubuntu machine
+# Step 1 : update Ubuntu machine
 apt update -y
 Step 2: install SAMBA package
 apt install samba samba-client samba-common -y
-Step 3: Enable samba in Firewall
+# Step 3: Enable samba in Firewall
  firewall-cmd --permanent --zone=public --add-service=samba
  
  firewall-cmd --reload 
  
  sudo ufw allow samba
-Step 4: Creating a Directory for samba that you wanna share ( Linux )
+# Step 4: Creating a Directory for samba that you wanna share ( Linux )
  mkdir <folder name >
 Step 4: Opening samba config file in terminal
 sudo vim /etc/samba/smb.conf
-Step 5: Make Configuration permission for created folder for share
+# Step 5: Make Configuration permission for created folder for share
 add this spinet at the end of the file
-``
-
+```
 [<shared folder name >]
    path = /home/anik/<shared folder name >
    available = yes
@@ -50,12 +49,14 @@ add this spinet at the end of the file
     writable = yes
     guest ok = yes
     read only = no
-
-    ``
+```
+```
 sudo mkdir -p /srv/samba/public
 sudo chown -R nobody:nogroup /srv/samba/public
 sudo chmod -R 0775 /srv/samba/public
-Step 6 : re-Start the service
+```
+# Step 6 : re-Start the service
+```
 sudo service smbd restart
 sudo systemctl restart smbd
 sudo systemctl restart nmbd
@@ -67,24 +68,38 @@ sudo systemctl enable smbd
 sudo systemctl enable nmbd
 
 sudo ufw allow Samba
-Step 7: set permission for create fiels from windows
+
+```
+
+# Step 7: set permission for create fiels from windows
+```
 sudo chown -R <username>:<username> /home/anik/<shared file name>
 sudo chmod -R 775 /home/<username>/<shared file name>
-Step 8: Setting up a user account for Samba
+```
+# Step 8: Setting up a user account for Samba
 Since Samba doesn’t use the system account password, we need to set up a Samba password for our user account.
 The username used must belong to a system account, else it won’t save.
 Setting up User Accounts and Connecting to Share
+```
 sudo smbpasswd -a <username>
-Step 9: Find your local IP
-ip a    
+```
+# Step 9: Find your local IP
+```
+ip a
+```
 example :( 192.168.0.108/24 )
 
-Step 10: Samba status
+# Step 10: Samba status
+```
 sudo systemctl status smbd
+```
 * create some file in the folder what you going to share
-Step 11: Go to your window server and type your ip address in window search bar with folder
+# Step 11: Go to your window server and type your ip address in window search bar with folder
+```
+\\<ubuntu ip address>\< shared folder name>
+```
+# \\192.168.0.108\sambashare
 
-\\<ubuntu ip address>\< shared folder name> # \\192.168.0.108\sambashare
 ** Congratulations you are done SAMBA server Linux to Window ***
 Next Post will be SAMBA server LINUX to LINUX
 
