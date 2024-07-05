@@ -101,7 +101,110 @@ latest data will sync when latest data come into central data from app's pod.
 
 # example & deffent between Deployment and Satefulset YAML
 
-![image](https://github.com/saifuranik/Tutorials-Blog/assets/102476507/4459ced7-8a11-44de-850f-0b45cf04805d)
+![Screenshot from 2024-07-05 22-15-30](https://github.com/saifuranik/Tutorials-Blog/assets/102476507/6c2dd7eb-2c0d-4a10-a873-330d019c86ba)
+
+
+
+
+
+# StatefulSet YAML Example:
+
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: example-statefulset
+spec:
+  serviceName: "example"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example-app
+  template:
+    metadata:
+      labels:
+        app: example-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+```
+
+in this statefulset we use VolumeClaimTemplate which is use for data syscning by all of pods as we me mentions earlier
+#### volumeClaimTemplates: Defines Persistent Volume Claims (PVCs) to be used by each Pod
+
+
+
+# Deployment YAML Example:
+
+```
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example-app
+  template:
+    metadata:
+      labels:
+        app: example-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+```
+
+Deployments typically do not manage persistent storage at the Pod level; 
+
+if needed, storage is shared among all Pods created by the Deployment.
+
+Because there is no persistance volume and persistance volume clain system not use thsts why Data only 
+descributed those pod who create first time with deployment replicaset
+
+if we increase repicaset ammount in future new pods who will create they do not have any old data in there
+or not sync from old pods which is very weak point of deployment
+in same case statsefulsert ensure that newly created pods make syscing old data from old pods or central pod
+
+##### Thank You for your time,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
